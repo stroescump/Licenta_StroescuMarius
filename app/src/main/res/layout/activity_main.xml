@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".MainActivity">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/uploadBtn"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:text="@string/hit_me"
+        app:icon="@drawable/ic_add_24dp"
+        app:iconGravity="textStart"
+        app:iconSize="20dp"
+        app:iconTint="@color/my_app_primary_variant_color"
+        android:textColor="@color/my_app_primary_variant_color"
+        app:strokeWidth="0.2dp"
+        app:strokeColor="@color/my_app_primary_variant_color"/>
+
+    <ImageView
+        android:theme="@style/Theme.AppCompat.DayNight"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/imageview_styling"
+        android:id="@+id/imgView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/todo"/>
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:textSize="23sp"
+        android:gravity="center"
+        android:id="@+id/tv_translate"
+        android:layout_marginTop="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/translated_words_will_appear_here"/>
+
+
+</LinearLayout>
