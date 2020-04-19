@@ -4,7 +4,7 @@
     <style name="AppTheme" parent="Theme.MaterialComponents">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark1</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:colorBackground">#ffffff</item>
     </style>
@@ -12,8 +12,9 @@
     <style name="Theme.MyApp" parent="Theme.MaterialComponents.DayNight">
         <!-- Original AppCompat attributes. -->
         <item name="colorPrimary">@color/my_app_primary_variant_color</item>
-        <item name="colorSecondary">@color/colorPrimaryDark</item>
+        <item name="colorSecondary">@color/colorPrimaryDark1</item>
         <item name="android:colorBackground">#ffffff</item>
+        <item name="android:colorPrimaryDark">#2BA2D9</item>
         <item name="colorError">@color/colorAccent</item>
 
         <!-- New MaterialComponents attributes. -->
@@ -53,11 +54,11 @@
 <item name="rippleColor">@color/mtrl_btn_text_btn_ripple_color</item>
 </style>
 
-    <color name="my_app_primary_variant_color">#5fb3fd</color>
+    <color name="my_app_primary_variant_color">@color/colorAccent</color>
     <color name="my_app_secondary_variant_color">#ffffff</color>
     <color name="my_app_surface_color">#ffffff</color>
     <color name="my_app_color_on_error">#B00020</color>
-    <color name="my_app_color_on_surface" />
+    <color name="my_app_color_on_surface">#331505</color>
     <color name="my_app_color_on_background" />
     <color name="my_app_color_on_secondary" />
     <color name="my_app_color_on_primary" />

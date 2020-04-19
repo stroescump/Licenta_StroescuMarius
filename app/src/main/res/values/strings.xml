@@ -1,6 +1,13 @@
 <resources>
-    <string name="app_name">Licenta_StroescuMarius</string>
-    <string name="hit_me">HIT ME</string>
+    <string name="app_name">Traducere Braille în text</string>
     <string name="todo">TODO</string>
-    <string name="translated_words_will_appear_here">Translated words will appear here</string>
+    <string name="translated_words_will_appear_here">Traducerea va apărea aici</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_translate">Traducere</string>
+    <string name="title_history">Istoric</string>
+    <string name="title_feedback">Feedback</string>
+    <string name="translate_your_photo">Tradu o imagine</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

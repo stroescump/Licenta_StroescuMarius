@@ -1,45 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:gravity="center"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/uploadBtn"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:text="@string/hit_me"
-        app:icon="@drawable/ic_add_24dp"
-        app:iconGravity="textStart"
-        app:iconSize="20dp"
-        app:iconTint="@color/my_app_primary_variant_color"
-        android:textColor="@color/my_app_primary_variant_color"
-        app:strokeWidth="0.2dp"
-        app:strokeColor="@color/my_app_primary_variant_color"/>
 
-    <ImageView
-        android:theme="@style/Theme.AppCompat.DayNight"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/imageview_styling"
-        android:id="@+id/imgView"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/todo"/>
+        android:layout_gravity="center">
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/uploadBtn"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/translate_your_photo"
+            android:textColor="@color/my_app_primary_variant_color"
+            app:icon="@drawable/ic_add_24dp"
+            app:iconGravity="textStart"
+            app:iconSize="20dp"
+            app:iconTint="@color/my_app_primary_variant_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/my_app_primary_variant_color"
+            app:strokeWidth="1dp" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:textSize="23sp"
-        android:gravity="center"
-        android:id="@+id/tv_translate"
-        android:layout_marginTop="60dp"
-        android:layout_width="wrap_content"
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_translate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/translated_words_will_appear_here"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/uploadBtn" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/imageview_styling"
+            android:contentDescription="@string/todo"
+            android:theme="@style/Theme.AppCompat.DayNight"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_translate" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <include
+        layout="@layout/item_bottom_navigation"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/translated_words_will_appear_here"/>
+        android:layout_gravity="bottom" />
 
-
-</LinearLayout>
+</FrameLayout>

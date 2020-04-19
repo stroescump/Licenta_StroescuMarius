@@ -9,32 +9,18 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-import com.example.licenta_stroescumarius.com.example.licenta_stroescumarius.helpers.GetPathFromUri;
-import com.example.licenta_stroescumarius.com.example.licenta_stroescumarius.helpers.NetworkClient;
-import com.example.licenta_stroescumarius.com.example.licenta_stroescumarius.helpers.UploadApis;
+import com.example.licenta_stroescumarius.helpers.GetPathFromUri;
+import com.example.licenta_stroescumarius.models.Translate;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textview.MaterialTextView;
 
-import java.io.File;
-import java.io.IOException;
-
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static final int REQUEST_CAMERA = 2;
     private static String[] PERMISSIONS_STORAGE = {
@@ -53,9 +39,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         initViews();
+    }
 
+    @Override
+    int getContentViewId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    int getNavigationMenuItemId() {
+        return R.id.TabTraducere;
     }
 
     private void initViews() {
@@ -75,8 +69,8 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                             case "Camera foto":
                                 ActivityCompat.requestPermissions(MainActivity.this,
-                                    new String[]{Manifest.permission.CAMERA},
-                                    REQUEST_CAMERA);
+                                        new String[]{Manifest.permission.CAMERA},
+                                        REQUEST_CAMERA);
                                 openCamera();
                                 break;
                         }
@@ -86,17 +80,18 @@ public class MainActivity extends AppCompatActivity {
         });
         imgView = findViewById(R.id.imgView);
         tv_translate = findViewById(R.id.tv_translate);
+
     }
 
     private void openCamera() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivity(intent);
+        Intent intentOpenCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivity(intentOpenCamera);
     }
 
     private void openGallery() {
-        Intent gallery = new Intent(Intent.ACTION_PICK,
+        Intent intentOpenGallery = new Intent(Intent.ACTION_PICK,
                 MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-        startActivityForResult(gallery, PICK_IMAGE);
+        startActivityForResult(intentOpenGallery, PICK_IMAGE);
 
     }
 
@@ -110,46 +105,16 @@ public class MainActivity extends AppCompatActivity {
                 imgView.setImageURI(imageUri);
                 final String path = new GetPathFromUri().getPathFromUri(imageUri, this);
                 if (path != null) {
-                    findPrediction(path);
+                    Translate translate = Translate.getInstance();
+                    translate.findPrediction(path, this);
                 }
             }
         }
     }
 
-    private void findPrediction(String fileLocation) {
-        File file = new File(fileLocation);
-        RequestBody imgPart = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-        MultipartBody.Part parts = MultipartBody.Part
-                .createFormData("img_predict", "img_predict.png", imgPart);
-        Retrofit retrofit = NetworkClient.getRetrofit();
-        UploadApis uploadApis = retrofit.create(UploadApis.class);
-        Call<ResponseBody> call = uploadApis.uploadImage(parts);
-        try {
-            call.enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call call, Response response) {
-
-                    ResponseBody responseBody = (ResponseBody) response.body();
-                    if (responseBody != null) {
-                        try {
-                            tv_translate.setText(responseBody.string());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    } else
-                        Toast.makeText(MainActivity.this, "Empty Body!", Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onFailure(Call call, Throwable t) {
-                    Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        } catch (Exception ex) {
-            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_SHORT).show();
-        }
+    public TextView getTextView() {
+        return this.tv_translate;
     }
-
 
 }
 

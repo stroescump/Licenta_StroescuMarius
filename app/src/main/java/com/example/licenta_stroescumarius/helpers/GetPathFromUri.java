@@ -1,4 +1,4 @@
-package com.example.licenta_stroescumarius.com.example.licenta_stroescumarius.helpers;
+package com.example.licenta_stroescumarius.helpers;
 
 import android.database.Cursor;
 import android.net.Uri;
@@ -7,6 +7,8 @@ import android.provider.MediaStore;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.licenta_stroescumarius.MainActivity;
+
+import java.nio.file.Path;
 
 public class GetPathFromUri {
     private Uri uriPath;
@@ -28,6 +30,7 @@ public class GetPathFromUri {
             cursor.close();
         }
         return res;
+        }
     }
 
-}
+

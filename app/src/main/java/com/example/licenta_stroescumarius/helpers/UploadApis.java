@@ -1,4 +1,4 @@
-package com.example.licenta_stroescumarius.com.example.licenta_stroescumarius.helpers;
+package com.example.licenta_stroescumarius.helpers;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;

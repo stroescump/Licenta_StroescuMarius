@@ -1,13 +1,13 @@
-package com.example.licenta_stroescumarius.com.example.licenta_stroescumarius.helpers;
+package com.example.licenta_stroescumarius.models;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.os.AsyncTask;
+import android.content.Context;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.licenta_stroescumarius.MainActivity;
-import com.google.gson.Gson;
+import com.example.licenta_stroescumarius.helpers.NetworkClient;
+import com.example.licenta_stroescumarius.helpers.UploadApis;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,13 +21,21 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class UploadImage extends AsyncTask<String,Void,String> {
-    private String prediction;
-    private UploadImage instance;
+public class Translate {
+    private static final String TAG = "TranslateClass";
+    private static final Translate instance = new Translate();
 
-    @Override
-    protected String doInBackground(String... strings) {
-        File file = new File(strings[0]);
+    private Translate() {
+
+    }
+
+    public static Translate getInstance(){
+        return instance;
+    }
+
+    public void findPrediction(String fileLocation, final MainActivity ctx) {
+        File file = new File(fileLocation);
+         String text ="";
         RequestBody imgPart = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part parts = MultipartBody.Part
                 .createFormData("img_predict", "img_predict.png", imgPart);
@@ -35,7 +43,6 @@ public class UploadImage extends AsyncTask<String,Void,String> {
         UploadApis uploadApis = retrofit.create(UploadApis.class);
         Call<ResponseBody> call = uploadApis.uploadImage(parts);
         try {
-            final Gson gson = new Gson();
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call call, Response response) {
@@ -43,24 +50,21 @@ public class UploadImage extends AsyncTask<String,Void,String> {
                     ResponseBody responseBody = (ResponseBody) response.body();
                     if (responseBody != null) {
                         try {
-                            prediction=responseBody.string();
-//                            Intent intent = new Intent(, MainActivity.class);
+                            ctx.getTextView().setText(responseBody.string());
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                     } else
-                        prediction = "Empty Response BODY!";
+                        Log.v(TAG, "findPrediction: "+"Empty Body");
                 }
 
                 @Override
                 public void onFailure(Call call, Throwable t) {
-                    prediction = t.getMessage();
+                    Log.v(TAG, "findPrediction: "+t.getMessage());
                 }
             });
         } catch (Exception ex) {
-            prediction = ex.getMessage();
+            Log.v(TAG, "findPrediction: "+ex.getMessage());
         }
-        return prediction;
     }
-
 }
