@@ -18,8 +18,9 @@ public abstract class BaseActivity extends AppCompatActivity implements BottomNa
         super.onCreate(savedInstanceState);
         setContentView(getContentViewId());
 
-        navigationView = (BottomNavigationView) findViewById(R.id.navigation);
+        navigationView = findViewById(R.id.navigation);
         navigationView.setOnNavigationItemSelectedListener(this);
+
     }
 
     @Override
@@ -38,8 +39,9 @@ public abstract class BaseActivity extends AppCompatActivity implements BottomNa
     private int getSelectedItemMenu(BottomNavigationView navigationView) {
         int valueReturned = 0;
         for (int i = 0; i < navigationView.getMenu().size(); i++) {
-            if (navigationView.getMenu().getItem(i).isChecked())
+            if (navigationView.getMenu().getItem(i).isChecked()) {
                 valueReturned = navigationView.getMenu().getItem(i).getItemId();
+            }
         }
         return valueReturned;
     }

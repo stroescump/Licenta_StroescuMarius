@@ -4,13 +4,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/primary_lightest"
     tools:context=".Feedback">
 
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/tv_nume"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hapticFeedbackEnabled="true"
+        android:hint="@string/nume"
+        android:textColorHint="@color/secondary_text"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/tv_feedback"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="400sp"
+        android:layout_margin="10dp"
+        android:gravity="start"
+        android:hapticFeedbackEnabled="true"
+        android:hint="@string/las_ne_feedback_ne_mbun_t_e_ti"
+        android:textColorHint="@color/secondary_text"
+        app:layout_constraintTop_toBottomOf="@id/tv_nume" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabFeedback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:fabSize="auto"
+        app:srcCompat="@drawable/avd_send_feedback_fab"
+        app:layout_constraintTop_toBottomOf="@id/tv_feedback" />
+
     <include
-        app:layout_constraintBottom_toBottomOf="parent"
         layout="@layout/item_bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom" />
+        android:layout_gravity="bottom"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

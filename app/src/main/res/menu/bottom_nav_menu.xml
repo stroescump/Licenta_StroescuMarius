@@ -3,17 +3,17 @@
 
     <item
         android:id="@+id/TabTraducere"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@drawable/avd_traducere"
         android:title="@string/title_translate" />
 
     <item
         android:id="@+id/TabIstoric"
-        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:icon="@drawable/avd_istoric"
         android:title="@string/title_history" />
 
     <item
         android:id="@+id/TabFeedback"
-        android:icon="@drawable/ic_notifications_black_24dp"
+        android:icon="@drawable/avd_feedback"
         android:title="@string/title_feedback" />
 
 </menu>

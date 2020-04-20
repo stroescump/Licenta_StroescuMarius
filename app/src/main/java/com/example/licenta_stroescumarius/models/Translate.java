@@ -6,7 +6,7 @@ import android.widget.Toast;
 import com.example.licenta_stroescumarius.MainActivity;
 import com.example.licenta_stroescumarius.helpers.ItemRepository;
 import com.example.licenta_stroescumarius.helpers.NetworkClient;
-import com.example.licenta_stroescumarius.helpers.UploadApis;
+import com.example.licenta_stroescumarius.interfaces.UploadApis;
 
 import java.io.File;
 import java.io.IOException;

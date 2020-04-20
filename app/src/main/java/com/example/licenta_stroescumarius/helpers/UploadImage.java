@@ -2,6 +2,7 @@ package com.example.licenta_stroescumarius.helpers;
 
 import android.os.AsyncTask;
 
+import com.example.licenta_stroescumarius.interfaces.UploadApis;
 import com.google.gson.Gson;
 
 import java.io.File;

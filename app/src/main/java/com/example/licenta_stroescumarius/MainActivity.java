@@ -6,9 +6,12 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.AnimatedVectorDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,38 +20,84 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.vectordrawable.graphics.drawable.Animatable2Compat;
+import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat;
 
 import com.example.licenta_stroescumarius.helpers.GetPathFromUri;
 import com.example.licenta_stroescumarius.models.Translate;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
-import com.google.api.client.util.DateTime;
-
-import org.threeten.bp.DateTimeUtils;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.sql.Date;
-import java.time.Instant;
 import java.util.Calendar;
 
 public class MainActivity extends BaseActivity {
 
     private MaterialButton uploadBtn;
     private ImageView imgView;
+    private ImageView braille_animation;
     private MaterialTextView tv_translate;
     private static final int PICK_IMAGE = 100;
     private static final int TAKE_PHOTO = 101;
     private Uri imageUri;
+    private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestPermissions();
         initViews();
+        loadAnimations();
+    }
+
+    private void loadAnimations() {
+        new Runnable() {
+            @Override
+            public void run() {
+                AnimatedVectorDrawableCompat avd1 = AnimatedVectorDrawableCompat.create(getApplicationContext(), R.drawable.avd_braille);
+                braille_animation.setImageDrawable(avd1);
+                avd1.start();
+                avd1.registerAnimationCallback(new Animatable2Compat.AnimationCallback() {
+                    @Override
+                    public void onAnimationEnd(Drawable drawable) {
+                        super.onAnimationEnd(drawable);
+                        avd1.start();
+                    }
+                });
+            }
+        }.run();
+
+        new Runnable() {
+            @Override
+            public void run() {
+                Drawable drawable = uploadBtn.getIcon();
+                if (drawable instanceof AnimatedVectorDrawable) {
+                    AnimatedVectorDrawable avd = (AnimatedVectorDrawable) drawable;
+                    avd.start();
+                }
+            }
+        }.run();
+    }
+
+    private void changeStrokeWidth(MaterialButton btn) {
+        handler = new Handler();
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        }, 1000);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
     }
 
     @Override
@@ -62,6 +111,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initViews() {
+        braille_animation = findViewById(R.id.braille_animation);
         uploadBtn = findViewById(R.id.uploadBtn);
         uploadBtn.setOnClickListener(v -> {
             AlertDialog.Builder dialogOptions = new AlertDialog.Builder(MainActivity.this);
@@ -70,9 +120,16 @@ public class MainActivity extends BaseActivity {
             dialogOptions.setCancelable(true);
             MaterialButton galerieBtn = view.findViewById(R.id.galerieBtn);
             MaterialButton cameraBtn = view.findViewById(R.id.cameraBtn);
-            galerieBtn.setOnClickListener(v1 -> openGallery());
-            cameraBtn.setOnClickListener(v2 -> openCamera());
-            dialogOptions.create().show();
+            AlertDialog referenceToDialog = dialogOptions.create();
+            galerieBtn.setOnClickListener(v1 -> {
+                referenceToDialog.dismiss();
+                openGallery();
+            });
+            cameraBtn.setOnClickListener(v1 -> {
+                referenceToDialog.dismiss();
+                openCamera();
+            });
+            referenceToDialog.show();
         });
         imgView = findViewById(R.id.imgView);
         tv_translate = findViewById(R.id.tv_translate);
@@ -131,7 +188,9 @@ public class MainActivity extends BaseActivity {
         if (requestCode == TAKE_PHOTO && resultCode == RESULT_OK) {
             Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
             imgView.setImageBitmap(imageBitmap);
-            File file = new File(Environment.getExternalStorageDirectory() + "/DCIM/Camera/", "cameraTaken_"+ Calendar.getInstance().getTime().toString()+".jpg");
+            File directory = new File(Environment.getExternalStorageDirectory() + "/Downloads/Braille_To_Text/");
+            directory.mkdirs();
+            File file = new File(Environment.getExternalStorageDirectory() + "/Downloads/Braille_To_Text/", "cameraTaken_" + Calendar.getInstance().getTime().toString() + ".jpg");
             try {
                 file.createNewFile();
                 OutputStream os = new BufferedOutputStream(new FileOutputStream(file));

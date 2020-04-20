@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Traducere Braille în text</string>
+    <string name="app_name">Braille în text</string>
     <string name="todo">TODO</string>
     <string name="translated_words_will_appear_here">Traducerea va apărea aici</string>
     <string name="title_activity_main2">Main2Activity</string>
@@ -13,4 +13,6 @@
     <string name="galerie">Galerie</string>
     <string name="camera_foto">Camera foto</string>
     <string name="alege_sursa_de_preluare_a_imaginii">Alege sursa de preluare a imaginii</string>
+    <string name="nume">Nume</string>
+    <string name="las_ne_feedback_ne_mbun_t_e_ti">Lasă-ne feedback, ne îmbunătățești :)</string>
 </resources>

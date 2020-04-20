@@ -1,8 +1,10 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:state_checked="true"
-        android:color="@color/colorSelected" />
+        android:alpha="1"
+        android:color="@color/icons" />
     <item
         android:state_checked="false"
-        android:color="@color/my_app_color_on_surface" />
+        android:alpha="0.6"
+        android:color="@color/icons_not_selected" />
 </selector>
