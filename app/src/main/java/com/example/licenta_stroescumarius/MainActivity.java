@@ -6,8 +6,11 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.fonts.Font;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -20,6 +23,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.vectordrawable.graphics.drawable.Animatable2Compat;
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat;
 
@@ -113,6 +117,7 @@ public class MainActivity extends BaseActivity {
     private void initViews() {
         braille_animation = findViewById(R.id.braille_animation);
         uploadBtn = findViewById(R.id.uploadBtn);
+//        uploadBtn.setTypeface(ResourcesCompat.getFont(this,R.font.montserrat_extrabold));
         uploadBtn.setOnClickListener(v -> {
             AlertDialog.Builder dialogOptions = new AlertDialog.Builder(MainActivity.this);
             View view = getLayoutInflater().inflate(R.layout.material_alert_dialog, null);
@@ -133,6 +138,7 @@ public class MainActivity extends BaseActivity {
         });
         imgView = findViewById(R.id.imgView);
         tv_translate = findViewById(R.id.tv_translate);
+        tv_translate.getPaint().setSubpixelText(true);
     }
 
     private void openCamera() {

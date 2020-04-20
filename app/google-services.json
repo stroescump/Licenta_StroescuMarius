@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "739110875556",
+    "firebase_url": "https://proiectlicentastroescumarius17.firebaseio.com",
+    "project_id": "proiectlicentastroescumarius17",
+    "storage_bucket": "proiectlicentastroescumarius17.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:739110875556:android:dc007ef6a5ecd4e41ed131",
+        "android_client_info": {
+          "package_name": "com.example.licenta_stroescumarius"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "739110875556-j872pqdf3685sqcsckjkmqibosd8vgn2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.licenta_stroescumarius",
+            "certificate_hash": "01f05ce1806f77e6d0caea53991acbe42eded049"
+          }
+        },
+        {
+          "client_id": "739110875556-tkvfkp9ou0aghjlvejde6tf4j8kivl1f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCE3eB-9nJEmkiCuKmsqACqQf-R3h31dXE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "739110875556-tkvfkp9ou0aghjlvejde6tf4j8kivl1f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,10 @@
+<vector android:autoMirrored="true" android:height="200dp"
+    android:viewportHeight="800" android:viewportWidth="800"
+    android:width="200dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#5273ff" android:name="6" android:pathData="m467 465.5c24.3 0 44 19.7 44 44c0 24.3 -19.7 44 -44 44c-24.3 0 -44 -19.7 -44 -44c0 -24.3 19.7 -44 44 -44z"/>
+    <path android:fillColor="#58b9dd" android:name="5" android:pathData="m333 465.5c24.3 0 44 19.7 44 44c0 24.3 -19.7 44 -44 44c-24.3 0 -44 -19.7 -44 -44c0 -24.3 19.7 -44 44 -44z"/>
+    <path android:fillColor="#5cd3b0" android:name="4" android:pathData="m467 356.5c24.3 0 44 19.7 44 44c0 24.3 -19.7 44 -44 44c-24.3 0 -44 -19.7 -44 -44c0 -24.3 19.7 -44 44 -44z"/>
+    <path android:fillColor="#ffc452" android:name="3" android:pathData="m333 356.5c24.3 0 44 19.7 44 44c0 24.3 -19.7 44 -44 44c-24.3 0 -44 -19.7 -44 -44c0 -24.3 19.7 -44 44 -44z"/>
+    <path android:fillColor="#ff5252" android:name="2" android:pathData="m467 246.5c24.3 0 44 19.7 44 44c0 24.3 -19.7 44 -44 44c-24.3 0 -44 -19.7 -44 -44c0 -24.3 19.7 -44 44 -44z"/>
+    <path android:fillColor="#ff7752" android:name="1" android:pathData="m333 246.5c24.3 0 44 19.7 44 44c0 24.3 -19.7 44 -44 44c-24.3 0 -44 -19.7 -44 -44c0 -24.3 19.7 -44 44 -44z"/>
+</vector>

@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:singleLine="true"
         android:hapticFeedbackEnabled="true"
         android:hint="@string/nume"
         android:textColorHint="@color/secondary_text"
@@ -23,22 +24,26 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="400sp"
-        android:layout_margin="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="3dp"
         android:gravity="start"
         android:hapticFeedbackEnabled="true"
         android:hint="@string/las_ne_feedback_ne_mbun_t_e_ti"
         android:textColorHint="@color/secondary_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_nume" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabFeedback"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:fabSize="auto"
-        app:srcCompat="@drawable/avd_send_feedback_fab"
-        app:layout_constraintTop_toBottomOf="@id/tv_feedback" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_feedback"
+        app:srcCompat="@drawable/avd_send_feedback_fab" />
 
     <include
         layout="@layout/item_bottom_navigation"

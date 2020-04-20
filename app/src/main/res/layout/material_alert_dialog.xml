@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingTop="40dp"
-    android:paddingBottom="40dp">
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp">
 
     <TextView
         style="@style/Widget.MaterialComponents.TextView"
@@ -13,42 +13,45 @@
         android:layout_height="wrap_content"
         android:alpha="0.8"
         android:gravity="center"
+        android:letterSpacing="-0.03"
         android:text="@string/alege_sursa_de_preluare_a_imaginii"
         android:textColor="@color/primary_text"
         android:textSize="16sp" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/galerieBtn"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="4dp"
+        android:layout_marginTop="4dp"
         android:gravity="center"
-        android:padding="10dp"
+        android:letterSpacing="-0.03"
+        android:padding="5dp"
         android:text="@string/galerie"
         android:textAllCaps="false"
         android:textColor="@color/primary_text"
         android:textSize="14sp"
         app:backgroundTint="@color/colorPrimary"
         app:strokeColor="@color/colorPrimaryDark"
-        app:strokeWidth="1dp" />
+        app:strokeWidth="0dp" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/cameraBtn"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
+        android:letterSpacing="-0.03"
         android:layout_gravity="center"
-        android:layout_margin="4dp"
+        android:layout_margin="0dp"
         android:gravity="center"
-        android:padding="10dp"
+        android:padding="5dp"
         android:text="@string/camera_foto"
         android:textAllCaps="false"
         android:textColor="@color/primary_text"
         android:textSize="14sp"
         app:backgroundTint="@color/colorPrimary"
         app:strokeColor="@color/colorPrimaryDark"
-        app:strokeWidth="1dp" />
+        app:strokeWidth="0dp" />
 
 </LinearLayout>

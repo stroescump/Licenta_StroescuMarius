@@ -3,6 +3,7 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents">
         <!-- Customize your theme here. -->
+
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -11,6 +12,7 @@
 
     <style name="Theme.MyApp" parent="Theme.MaterialComponents.DayNight">
         <!-- Original AppCompat attributes. -->
+        <item name="android:fontFamily">@font/montserrat_family</item>
         <item name="colorPrimary">@color/my_app_primary_variant_color</item>
         <item name="colorSecondary">@color/colorPrimaryDark</item>
         <item name="android:colorBackground">#ffffff</item>
@@ -18,6 +20,7 @@
         <item name="colorError">@color/colorAccent</item>
 
         <!-- New MaterialComponents attributes. -->
+        <item name="android:windowActivityTransitions">true</item>
         <item name="colorPrimaryVariant">@color/my_app_primary_variant_color</item>
         <item name="colorSecondaryVariant">@color/my_app_secondary_variant_color</item>
         <item name="colorSurface">@color/my_app_surface_color</item>

@@ -1,7 +1,9 @@
 package com.example.licenta_stroescumarius;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.transition.Fade;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -17,7 +19,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BottomNa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getContentViewId());
-
+        overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
         navigationView = findViewById(R.id.navigation);
         navigationView.setOnNavigationItemSelectedListener(this);
 
@@ -51,6 +53,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BottomNa
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int currentItemSelected = getSelectedItemMenu(navigationView);
         int itemId = item.getItemId();
+
         if (itemId == R.id.TabTraducere && itemId != currentItemSelected) {
             startActivity(new Intent(this, MainActivity.class));
         } else if (itemId == R.id.TabIstoric && itemId != currentItemSelected) {
