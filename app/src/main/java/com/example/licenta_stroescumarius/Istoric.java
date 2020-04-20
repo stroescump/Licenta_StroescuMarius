@@ -1,8 +1,10 @@
 package com.example.licenta_stroescumarius;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,7 +15,6 @@ import com.example.licenta_stroescumarius.models.ItemIstoric;
 import java.util.ArrayList;
 
 public class Istoric extends BaseActivity {
-    private boolean taskSuccessful;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter recyclerAdapter;
     private RecyclerView.LayoutManager recyclerLayoutManager;
@@ -35,34 +36,39 @@ public class Istoric extends BaseActivity {
         return R.id.TabIstoric;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void initViews() {
-        taskSuccessful=false;
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerLayoutManager = new LinearLayoutManager(this);
 
-
-        listaItemsIstoric.add(new ItemIstoric("Ana are COVID", ""));
-        listaItemsIstoric.add(new ItemIstoric("Ion Paduraroo", ""));
-        listaItemsIstoric.add(new ItemIstoric("Markel", ""));
-        listaItemsIstoric.add(new ItemIstoric("Katena", ""));
-//        insertIntoDb();
         ItemRepository repo = ItemRepository.getInstance();
-        repo.insertIntoDb(this, listaItemsIstoric.get(2));
-        if (taskSuccessful)
-            Toast.makeText(this, "Inserted!", Toast.LENGTH_SHORT).show();
-        else
-            Toast.makeText(this, "Failed on inserting! Check passed context!", Toast.LENGTH_SHORT).show();
-//        Toast.makeText(this, resultOperation, Toast.LENGTH_SHORT).show();
+        repo.getAllFromDb(this, listaItemsIstoric);
 
         recyclerAdapter = new IstoricAdapter(listaItemsIstoric);
         recyclerView.setLayoutManager(recyclerLayoutManager);
         recyclerView.setAdapter(recyclerAdapter);
+
+        ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
+                ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder target, int direction) {
+                int position = target.getAdapterPosition();
+                repo.removeItemFromDb(Istoric.this, listaItemsIstoric.get(position));
+                listaItemsIstoric.remove(position);
+            }
+        });
+
+        helper.attachToRecyclerView(recyclerView);
     }
 
-    public void setBoolSuccessfulTask(){
-        taskSuccessful=true;
+    public RecyclerView.Adapter getRecyclerAdapter() {
+        return recyclerAdapter;
     }
-
 
 }

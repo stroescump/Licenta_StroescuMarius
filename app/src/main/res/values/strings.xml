@@ -10,4 +10,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="galerie">Galerie</string>
+    <string name="camera_foto">Camera foto</string>
+    <string name="alege_sursa_de_preluare_a_imaginii">Alege sursa de preluare a imaginii</string>
 </resources>

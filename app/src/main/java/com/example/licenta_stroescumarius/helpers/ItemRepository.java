@@ -3,8 +3,7 @@ package com.example.licenta_stroescumarius.helpers;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
-
-import androidx.appcompat.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.example.licenta_stroescumarius.Istoric;
 import com.example.licenta_stroescumarius.exceptions.AsyncTaskDbExceptions;
@@ -14,8 +13,6 @@ import java.util.ArrayList;
 
 public class ItemRepository {
     private static ItemRepository instance;
-    private ArrayList<ItemIstoric> itemsToBeReturned = new ArrayList<>();
-    private String resultFromInsertOperation = "";
 
     public static synchronized ItemRepository getInstance() {
         if (instance == null) {
@@ -28,34 +25,46 @@ public class ItemRepository {
     }
 
     @SuppressLint("StaticFieldLeak")
-    public ArrayList<ItemIstoric> getAllFromDb() {
-        new AsyncTask<Context, Void, ItemIstoric>() {
+    public void getAllFromDb(Istoric activity, ArrayList<ItemIstoric> istoricArrayList) {
+        new AsyncTask<Context, Void, ArrayList<ItemIstoric>>() {
             @Override
-            protected void onPostExecute(ItemIstoric item) {
+            protected void onPostExecute(ArrayList<ItemIstoric> item) {
                 super.onPostExecute(item);
-                itemsToBeReturned.add(item);
+                activity.getRecyclerAdapter().notifyDataSetChanged();
             }
 
             @Override
-            protected ItemIstoric doInBackground(Context... ctx) {
+            protected ArrayList<ItemIstoric> doInBackground(Context... ctx) {
                 try {
                     AppDatabase db = AppDatabase.getInstance(ctx[0]);
-                    return db.daoInterface().getItemsIstoricList().get(0);
+                    istoricArrayList.addAll(db.daoInterface().getItemsIstoricList());
+                    return istoricArrayList;
                 } catch (Exception ex) {
+                    ex.printStackTrace();
                     return null;
                 }
             }
-        }.execute();
-        return itemsToBeReturned;
+        }.execute(activity.getApplicationContext());
     }
 
     @SuppressLint("StaticFieldLeak")
-    public void insertIntoDb(Istoric activity, ItemIstoric itemIstoric) {
+    public void insertIntoDb(Context context, ItemIstoric itemIstoric) {
 
         new AsyncTask<Context, Void, Void>() {
             @Override
             protected void onCancelled(Void aVoid) {
                 super.onCancelled(aVoid);
+                try {
+                    throw new AsyncTaskDbExceptions("Check context against null!");
+                } catch (AsyncTaskDbExceptions asyncTaskDbExceptions) {
+                    asyncTaskDbExceptions.printStackTrace();
+                }
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                Toast.makeText(context, "Inserted!", Toast.LENGTH_SHORT).show();
 
             }
 
@@ -64,15 +73,31 @@ public class ItemRepository {
                 try {
                     AppDatabase db = AppDatabase.getInstance(ctx[0]);
                     db.daoInterface().insertItemInInstoric(itemIstoric);
-                    activity.setBoolSuccessfulTask();
-//                    activity.setBoolSuccessfulTask();
-                }catch (Exception ex){
-                    new AsyncTaskDbExceptions("Check context!").printStackTrace();
+
+                } catch (Exception ex) {
                     cancel(true);
                 }
                 return null;
             }
 
-        }.execute(activity.getApplicationContext());
+        }.execute(context);
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    public void removeItemFromDb(Istoric activity, ItemIstoric item) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                activity.getRecyclerAdapter().notifyDataSetChanged();
+            }
+
+            @Override
+            protected Void doInBackground(Void... voids) {
+                AppDatabase db = AppDatabase.getInstance(activity.getApplicationContext());
+                db.daoInterface().deleteItemFromIstoric(item);
+                return null;
+            }
+        }.execute();
     }
 }

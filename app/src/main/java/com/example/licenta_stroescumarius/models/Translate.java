@@ -1,11 +1,10 @@
 package com.example.licenta_stroescumarius.models;
 
-import android.content.Context;
 import android.util.Log;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.licenta_stroescumarius.MainActivity;
+import com.example.licenta_stroescumarius.helpers.ItemRepository;
 import com.example.licenta_stroescumarius.helpers.NetworkClient;
 import com.example.licenta_stroescumarius.helpers.UploadApis;
 
@@ -29,19 +28,20 @@ public class Translate {
 
     }
 
-    public static Translate getInstance(){
+    public static Translate getInstance() {
         return instance;
     }
 
     public void findPrediction(String fileLocation, final MainActivity ctx) {
         File file = new File(fileLocation);
-         String text ="";
+        String text = "";
         RequestBody imgPart = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part parts = MultipartBody.Part
                 .createFormData("img_predict", "img_predict.png", imgPart);
         Retrofit retrofit = NetworkClient.getRetrofit();
         UploadApis uploadApis = retrofit.create(UploadApis.class);
         Call<ResponseBody> call = uploadApis.uploadImage(parts);
+
         try {
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
@@ -50,21 +50,26 @@ public class Translate {
                     ResponseBody responseBody = (ResponseBody) response.body();
                     if (responseBody != null) {
                         try {
-                            ctx.getTextView().setText(responseBody.string());
+                            String result = responseBody.string();
+                            ItemRepository repo = ItemRepository.getInstance();
+                            repo.insertIntoDb(ctx.getApplicationContext(),
+                                    new ItemIstoric(result, fileLocation));
+                            Toast.makeText(ctx, "Inserted!", Toast.LENGTH_SHORT).show();
+                            ctx.getTextView().setText(result);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                     } else
-                        Log.v(TAG, "findPrediction: "+"Empty Body");
+                        Log.v(TAG, "findPrediction: " + "Empty Body");
                 }
 
                 @Override
                 public void onFailure(Call call, Throwable t) {
-                    Log.v(TAG, "findPrediction: "+t.getMessage());
+                    Log.v(TAG, "findPrediction: " + t.getMessage());
                 }
             });
         } catch (Exception ex) {
-            Log.v(TAG, "findPrediction: "+ex.getMessage());
+            Log.v(TAG, "findPrediction: " + ex.getMessage());
         }
     }
 }

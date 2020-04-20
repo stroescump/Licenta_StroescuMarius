@@ -13,23 +13,20 @@ public class ItemIstoric implements Parcelable {
     private int uid;
     @ColumnInfo(name = "traducere")
     private String traducere;
-    @ColumnInfo(name = "imagine_uri")
-    private String imagineUri;
-
-    public ItemIstoric(String traducere, String imagineUri) {
-        this.traducere = traducere;
-        this.imagineUri = imagineUri;
-    }
+    @ColumnInfo(name = "imagine_path")
+    private String imaginePath;
 
     protected ItemIstoric(Parcel in) {
+        uid = in.readInt();
         traducere = in.readString();
-        imagineUri = in.readString();
+        imaginePath = in.readString();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(uid);
         dest.writeString(traducere);
-        dest.writeString(imagineUri);
+        dest.writeString(imaginePath);
     }
 
     @Override
@@ -49,12 +46,17 @@ public class ItemIstoric implements Parcelable {
         }
     };
 
-    public void setUid(int uid) {
-        this.uid = uid;
+    public ItemIstoric(String traducere, String imaginePath) {
+        this.traducere = traducere;
+        this.imaginePath = imaginePath;
     }
 
     public int getUid() {
         return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
     }
 
     public String getTraducere() {
@@ -65,11 +67,11 @@ public class ItemIstoric implements Parcelable {
         this.traducere = traducere;
     }
 
-    public String getImagineUri() {
-        return imagineUri;
+    public String getImaginePath() {
+        return imaginePath;
     }
 
-    public void setImagineUri(String imagineUri) {
-        this.imagineUri = imagineUri;
+    public void setImaginePath(String imaginePath) {
+        this.imaginePath = imaginePath;
     }
 }

@@ -1,6 +1,7 @@
 package com.example.licenta_stroescumarius.customAdapters;
 
-import android.net.Uri;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.licenta_stroescumarius.R;
 import com.example.licenta_stroescumarius.models.ItemIstoric;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class IstoricAdapter extends RecyclerView.Adapter<IstoricAdapter.IstoricViewHolder> {
@@ -33,7 +35,10 @@ public class IstoricAdapter extends RecyclerView.Adapter<IstoricAdapter.IstoricV
     @Override
     public void onBindViewHolder(@NonNull IstoricViewHolder holder, int position) {
         ItemIstoric currentItem = itemIstoricArrayList.get(position);
-        holder.imagine.setImageURI(Uri.parse(currentItem.getImagineUri()));
+        File image = new File(currentItem.getImaginePath());
+        Bitmap bitmap = BitmapFactory.decodeFile(image.getPath());
+        Bitmap bmp = Bitmap.createScaledBitmap(bitmap, 100, 100, true);
+        holder.imagine.setImageBitmap(bmp);
         holder.traducere.setText(currentItem.getTraducere());
     }
 
