@@ -16,7 +16,7 @@ public class ItemIstoric implements Parcelable {
     @ColumnInfo(name = "imagine_path")
     private String imaginePath;
 
-    protected ItemIstoric(Parcel in) {
+    private ItemIstoric(Parcel in) {
         uid = in.readInt();
         traducere = in.readString();
         imaginePath = in.readString();
@@ -74,4 +74,5 @@ public class ItemIstoric implements Parcelable {
     public void setImaginePath(String imaginePath) {
         this.imaginePath = imaginePath;
     }
+
 }

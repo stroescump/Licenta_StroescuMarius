@@ -3,6 +3,7 @@ package com.example.licenta_stroescumarius.models;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.licenta_stroescumarius.LiveProcessing;
 import com.example.licenta_stroescumarius.MainActivity;
 import com.example.licenta_stroescumarius.helpers.ItemRepository;
 import com.example.licenta_stroescumarius.helpers.NetworkClient;
@@ -34,7 +35,6 @@ public class Translate {
 
     public void findPrediction(String fileLocation, final MainActivity ctx) {
         File file = new File(fileLocation);
-        String text = "";
         RequestBody imgPart = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part parts = MultipartBody.Part
                 .createFormData("img_predict", "img_predict.png", imgPart);
@@ -55,7 +55,44 @@ public class Translate {
                             repo.insertIntoDb(ctx.getApplicationContext(),
                                     new ItemIstoric(result, fileLocation));
                             Toast.makeText(ctx, "Inserted!", Toast.LENGTH_SHORT).show();
-                            ctx.getTextView().setText(result);
+                            if(ctx!=null){
+                                ctx.getTextView().setText(result);
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } else
+                        Log.v(TAG, "findPrediction: " + "Empty Body");
+                }
+
+                @Override
+                public void onFailure(Call call, Throwable t) {
+                    Log.v(TAG, "findPrediction: " + t.getMessage());
+                }
+            });
+        } catch (Exception ex) {
+            Log.v(TAG, "findPrediction: " + ex.getMessage());
+        }
+    }
+
+    public void getStringPrediction(String fileLocation){
+        File file = new File(fileLocation);
+        RequestBody imgPart = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part parts = MultipartBody.Part
+                .createFormData("img_predict", "img_predict.png", imgPart);
+        Retrofit retrofit = NetworkClient.getRetrofit();
+        UploadApis uploadApis = retrofit.create(UploadApis.class);
+        Call<ResponseBody> call = uploadApis.uploadImage(parts);
+
+        try {
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call call, Response response) {
+
+                    ResponseBody responseBody = (ResponseBody) response.body();
+                    if (responseBody != null) {
+                        try {
+                            String result = responseBody.string();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

@@ -47,8 +47,6 @@ public class MainActivity extends BaseActivity {
     private MaterialTextView tv_translate;
     private static final int PICK_IMAGE = 100;
     private static final int TAKE_PHOTO = 101;
-    private Uri imageUri;
-    private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,20 +73,15 @@ public class MainActivity extends BaseActivity {
             }
         }.run();
 
-        new Runnable() {
-            @Override
-            public void run() {
-                Drawable drawable = uploadBtn.getIcon();
-                if (drawable instanceof AnimatedVectorDrawable) {
-                    AnimatedVectorDrawable avd = (AnimatedVectorDrawable) drawable;
-                    avd.start();
-                }
-            }
-        }.run();
+        Drawable drawable = uploadBtn.getIcon();
+        if (drawable instanceof AnimatedVectorDrawable) {
+            AnimatedVectorDrawable avd = (AnimatedVectorDrawable) drawable;
+            avd.start();
+        }
     }
 
     private void changeStrokeWidth(MaterialButton btn) {
-        handler = new Handler();
+        Handler handler = new Handler();
 
         handler.postDelayed(new Runnable() {
             @Override
@@ -117,7 +110,6 @@ public class MainActivity extends BaseActivity {
     private void initViews() {
         braille_animation = findViewById(R.id.braille_animation);
         uploadBtn = findViewById(R.id.uploadBtn);
-//        uploadBtn.setTypeface(ResourcesCompat.getFont(this,R.font.montserrat_extrabold));
         uploadBtn.setOnClickListener(v -> {
             AlertDialog.Builder dialogOptions = new AlertDialog.Builder(MainActivity.this);
             View view = getLayoutInflater().inflate(R.layout.material_alert_dialog, null);
@@ -132,7 +124,8 @@ public class MainActivity extends BaseActivity {
             });
             cameraBtn.setOnClickListener(v1 -> {
                 referenceToDialog.dismiss();
-                openCamera();
+                startActivity(new Intent(this,LiveProcessing.class));
+//                openCamera();
             });
             referenceToDialog.show();
         });
@@ -183,7 +176,7 @@ public class MainActivity extends BaseActivity {
         Translate translate = Translate.getInstance();
         if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
             if (data != null) {
-                imageUri = data.getData();
+                Uri imageUri = data.getData();
                 imgView.setImageURI(imageUri);
                 final String path = new GetPathFromUri().getPathFromUri(imageUri, this);
                 if (path != null) {
