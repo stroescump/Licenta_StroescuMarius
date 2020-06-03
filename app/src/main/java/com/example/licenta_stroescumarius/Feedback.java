@@ -26,12 +26,13 @@ public class Feedback extends BaseActivity {
         FloatingActionButton fab = findViewById(R.id.fabFeedback);
         EditText tv_feedback = findViewById(R.id.tv_feedback);
         EditText tv_nume = findViewById(R.id.tv_nume);
+        tv_nume.requestFocus();
         AnimatedVectorDrawableCompat avd = AnimatedVectorDrawableCompat.create(this,
                 R.drawable.avd_send_feedback_fab);
         fab.setImageDrawable(avd);
         fab.setOnClickListener(v -> {
-            avd.start();
             try {
+                avd.start();
                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
                 int idFeedback = new Random().nextInt();
                 reference.child("feedback_users").

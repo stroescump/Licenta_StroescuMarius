@@ -50,7 +50,7 @@ import retrofit2.Retrofit;
 public class LiveProcessing extends AppCompatActivity implements CameraBridgeViewBase.CvCameraViewListener2 {
     private static final String TAG = "LiveProcessing";
     private Mat matGray;
-    private String resultTranslated;
+    private String resultTranslated=null;
     private MaterialButton liveBtn;
     private ImageView touchBackgroundRef;
     private JavaCamera2View javaCameraView;
@@ -175,29 +175,34 @@ public class LiveProcessing extends AppCompatActivity implements CameraBridgeVie
                             50,
                             1,
                             txtColor);
+                    resultTranslated="";
                 }
-                new AsyncTask<Void, Void, Mat>() {
-                    @Override
-                    protected void onPostExecute(Mat mat) {
+                try {
+                    new AsyncTask<Void, Void, Mat>() {
+                        @Override
+                        protected void onPostExecute(Mat mat) {
 
-                    }
-
-                    @Override
-                    protected Mat doInBackground(Void... voids) {
-                        try {
-                            Mat cropped = matGray.submat(r);
-                            File img = new File(Environment.getExternalStorageDirectory() + "/Download/", "test.png");
-                            img.createNewFile();
-                            Imgcodecs.imwrite(img.getAbsolutePath(), cropped);
-                            cropped.release();
-                            findTranslate(img);
-                            Thread.sleep(1000);
-                        } catch (InterruptedException | IOException e) {
-                            e.printStackTrace();
                         }
-                        return matGray;
-                    }
-                }.execute();
+
+                        @Override
+                        protected Mat doInBackground(Void... voids) {
+                            try {
+                                Mat cropped = matGray.submat(r);
+                                File img = new File(Environment.getExternalStorageDirectory() + "/Download/", "test.png");
+                                img.createNewFile();
+                                Imgcodecs.imwrite(img.getAbsolutePath(), cropped);
+                                cropped.release();
+                                findTranslate(img);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            return matGray;
+                        }
+                    }.execute();
+                    Thread.sleep(500);
+                }catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 Imgproc.rectangle(matGray, firstPoint, secondPoint, lineColor, 1);
             }
         }

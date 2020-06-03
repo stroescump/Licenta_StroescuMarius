@@ -10,7 +10,7 @@
         <item name="android:colorBackground">#ffffff</item>
     </style>
 
-    <style name="Theme.MyApp" parent="Theme.MaterialComponents.DayNight">
+    <style name="Theme.MyApp" parent="Theme.MaterialComponents.NoActionBar.Bridge">
         <!-- Original AppCompat attributes. -->
         <item name="android:fontFamily">@font/montserrat_family</item>
         <item name="colorPrimary">@color/my_app_primary_variant_color</item>
