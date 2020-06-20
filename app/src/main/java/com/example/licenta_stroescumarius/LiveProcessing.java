@@ -175,7 +175,6 @@ public class LiveProcessing extends AppCompatActivity implements CameraBridgeVie
                             50,
                             1,
                             txtColor);
-                    resultTranslated="";
                 }
                 try {
                     new AsyncTask<Void, Void, Mat>() {
